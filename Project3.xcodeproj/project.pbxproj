@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		311B36D7246F4598006F1AA4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311B36D6246F4598006F1AA4 /* main.cpp */; };
+		311B36E6246F4629006F1AA4 /* utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311B36DE246F4629006F1AA4 /* utilities.cpp */; };
+		311B36E7246F4629006F1AA4 /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311B36E0246F4629006F1AA4 /* Actor.cpp */; };
+		311B36E8246F4629006F1AA4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311B36E1246F4629006F1AA4 /* main.cpp */; };
+		311B36E9246F4629006F1AA4 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311B36E2246F4629006F1AA4 /* GameObject.cpp */; };
+		311B36EA246F4629006F1AA4 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311B36E5246F4629006F1AA4 /* Game.cpp */; };
+		311B36EC246F49B7006F1AA4 /* Dungeon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311B36EB246F49B7006F1AA4 /* Dungeon.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +29,17 @@
 
 /* Begin PBXFileReference section */
 		311B36D3246F4598006F1AA4 /* Project3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Project3; sourceTree = BUILT_PRODUCTS_DIR; };
-		311B36D6246F4598006F1AA4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		311B36DD246F4629006F1AA4 /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
+		311B36DE246F4629006F1AA4 /* utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utilities.cpp; sourceTree = "<group>"; };
+		311B36DF246F4629006F1AA4 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		311B36E0246F4629006F1AA4 /* Actor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Actor.cpp; sourceTree = "<group>"; };
+		311B36E1246F4629006F1AA4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		311B36E2246F4629006F1AA4 /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
+		311B36E3246F4629006F1AA4 /* Actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actor.h; sourceTree = "<group>"; };
+		311B36E4246F4629006F1AA4 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		311B36E5246F4629006F1AA4 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		311B36EB246F49B7006F1AA4 /* Dungeon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Dungeon.cpp; sourceTree = "<group>"; };
+		311B36ED246F49C0006F1AA4 /* Dungeon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dungeon.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +72,17 @@
 		311B36D5246F4598006F1AA4 /* Project3 */ = {
 			isa = PBXGroup;
 			children = (
-				311B36D6246F4598006F1AA4 /* main.cpp */,
+				311B36E0246F4629006F1AA4 /* Actor.cpp */,
+				311B36E3246F4629006F1AA4 /* Actor.h */,
+				311B36E5246F4629006F1AA4 /* Game.cpp */,
+				311B36E4246F4629006F1AA4 /* Game.h */,
+				311B36E2246F4629006F1AA4 /* GameObject.cpp */,
+				311B36E1246F4629006F1AA4 /* main.cpp */,
+				311B36DE246F4629006F1AA4 /* utilities.cpp */,
+				311B36DF246F4629006F1AA4 /* GameObject.h */,
+				311B36DD246F4629006F1AA4 /* utilities.h */,
+				311B36EB246F49B7006F1AA4 /* Dungeon.cpp */,
+				311B36ED246F49C0006F1AA4 /* Dungeon.h */,
 			);
 			path = Project3;
 			sourceTree = "<group>";
@@ -119,7 +144,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				311B36D7246F4598006F1AA4 /* main.cpp in Sources */,
+				311B36E9246F4629006F1AA4 /* GameObject.cpp in Sources */,
+				311B36E6246F4629006F1AA4 /* utilities.cpp in Sources */,
+				311B36EC246F49B7006F1AA4 /* Dungeon.cpp in Sources */,
+				311B36E7246F4629006F1AA4 /* Actor.cpp in Sources */,
+				311B36E8246F4629006F1AA4 /* main.cpp in Sources */,
+				311B36EA246F4629006F1AA4 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
