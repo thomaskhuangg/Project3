@@ -13,7 +13,7 @@ Game::Game(int goblinSmellDistance)
     
     m_dungeons[0] = new Dungeon();  //Create Dungeon
     
-    //m_dungeons[0]->addPlayer();     //Add player to the dungeon
+    m_dungeons[0]->addPlayer();     //Add player to the dungeon
 }
 
 Game::~Game()
@@ -26,8 +26,10 @@ void Game::play()
 {
  //check if there's no player !!!!
     Player* player_ptr = m_dungeons[0]->player();
+    
     while(!m_dungeons[m_currentLevel]->player()->isDead()){
         //check for dead mobs
+        
         player_ptr->heal(); //the 1/10 chance for player to heal per turn
         
         clearScreen(); //clear screen for the display
@@ -42,6 +44,8 @@ void Game::play()
                 case ARROW_DOWN:
                 case ARROW_RIGHT:
                 case ARROW_LEFT:
+                    player_ptr->move(action);
+                    break;
                     //here u want to move player and display message
                     break;
                 case 'c':
@@ -54,7 +58,7 @@ void Game::play()
                     player_ptr->displayInventory('r');
                     break;
                 case 'g':
-                    //trigger pick up
+                    m_dungeons[m_currentLevel]->pickUpItem();
                     break;
                 case 'i':
                     player_ptr->displayInventory('i');

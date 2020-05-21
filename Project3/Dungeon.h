@@ -32,22 +32,30 @@ public:
     void display();
     
     bool addPlayer();
-    void addMonster(int num);
+    
+    void addMonster(int mon_num);
     void killMonsters();
-    void addItem(int r,int c, int item);
+    
+    void addItem(int item_num);
     
     bool validMove(int r, int c);
     bool isWall(int r, int c);
     
-    void pickUpItem(std::string &item);
+    void pickUpItem();
     
     bool checkItemPos(int r, int c);
     
+    void populateDungeon();
+    
     void makeRoom(int &row, int &col);
 
+    bool isMonster(int r, int c);
+    
     void randomPos(int& r, int& c);
 
     char currentPos(int r, int c);
+    
+    void clearPoint(int r, int c);
     //Accessors
     
     int row() const { return m_row; }

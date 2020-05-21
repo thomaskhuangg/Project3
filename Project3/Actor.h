@@ -19,6 +19,10 @@ public:
     
     virtual ~Actor(){delete m_weapon;} //Destructor
     
+    void move(char direction);
+    
+    void changeCoords(int r, int c);
+    
     void placeActor(Dungeon *level, int r, int c);
     
     Dungeon* getLevel() const { return m_level; } //Accessors
