@@ -94,7 +94,9 @@ void Actor::cheat(){ //Cheat function for testing
 }
 
 void Actor::attack(int r, int c){
-    if()
+    if (getLevel()->player()->row() == r && getLevel()->player()->col() == c) {
+        
+    }
 }
 
 void Player::readScroll(GameObject* obj){ //t is teleport, a is armor, etc. Used in inventory, if they choose to use it, the stat is changed/the player is teleported
@@ -174,6 +176,25 @@ void Player::displayInventory(char c){ //Display inventory
     }
     else{
         return; //If the inputted character isn't in the alphabet, we return.
+    }
+}
+
+void Player::attack(int r, int c) {
+    char pos = getLevel()->currentPos(r, c);
+
+    switch (pos) {
+    case 'B':
+    case 'S':
+    case 'D':
+    case 'G':
+        Actor * mob = getLevel()->monster(r,c);
+
+        int playerDmg = this->dex();
+        int monsterStats = mob->dex() + mob->armor();
+
+        int randPlayer = randInt(playerDmg);
+        int randMonster = randInt(monsterStats);
+
     }
 }
 

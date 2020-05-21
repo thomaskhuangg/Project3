@@ -36,7 +36,7 @@ void Game::play()
         
         char action = getCharacter();
         
-        if(player_ptr->sleepTime() != 9){ //check if player is sleeping
+        if(player_ptr->sleepTime() == 0){ //check if player is sleeping
             switch(action){
                 case ARROW_UP:
                 case ARROW_DOWN:

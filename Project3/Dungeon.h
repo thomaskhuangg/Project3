@@ -32,22 +32,28 @@ public:
     void display();
     
     bool addPlayer();
-    bool addMonster(int num);
-    bool addItem(int r,int c, int item);
+    void addMonster(int num);
+    void killMonsters();
+    void addItem(int r,int c, int item);
     
     bool validMove(int r, int c);
     bool isWall(int r, int c);
     
-    bool pickUpItem(std::string &item);
+    void pickUpItem(std::string &item);
     
-    bool checkObjectPos(int r, int c);
+    bool checkItemPos(int r, int c);
     
     void makeRoom(int &row, int &col);
+
+    void randomPos(int& r, int& c);
+
+    char currentPos(int r, int c);
     //Accessors
     
     int row() const { return m_row; }
     int col() const { return m_col; }
     Player* player() const {return m_player; }
+    Actor* monster(int r, int c) const;
 private:
     //Private member variables
     Game* game;
@@ -64,6 +70,11 @@ private:
     int m_level;
     
     Player* m_player;
+
+    GameObject* m_idol;
+
+    std::vector<GameObject*> m_gameObjects;
+    std::vector<Actor*>  m_monsters;
     
     char dungeon[MAXROWS][MAXCOLS];
 };

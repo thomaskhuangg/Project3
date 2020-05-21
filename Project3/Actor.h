@@ -60,7 +60,7 @@ public:
     //Cheat function
     void cheat();
     
-    virtual void heal() = 0; //Default implementation
+    virtual void heal() {}; //Default implementation
     virtual void attack(int r, int c);  //Default implementation
     virtual void drop(int r, int c) {} //Default implementation
     virtual char movePlace(int r, int c) {return ' '; } //Default implementation
@@ -97,7 +97,7 @@ public:
     void readScroll(GameObject* obj);
     
     virtual void heal();
-    //virtual void attack(int r, int c);
+    virtual void attack(int r, int c);
 private:
     int m_objects; //how many objects
 };
@@ -105,7 +105,6 @@ private:
 class Bogeyman : public Actor   //Bogeyman class
 {
 public:
-    Bogeyman(); //Bogeyman default constructor
     Bogeyman(Dungeon* level, int r, int c);   //Constructor for placing in a level
     virtual void drop(int r, int c);
     
@@ -118,7 +117,6 @@ private:
 class Snakewomen : public Actor     //Snakewomen class
 {
 public:
-    Snakewomen();   //Snakewomen default constructor
     Snakewomen(Dungeon* level, int r, int c);       //Constructor for placing in a level
     virtual void drop(int r, int c);
     
@@ -128,7 +126,6 @@ public:
 class Dragon : public Actor     //Dragon class
 {
 public:
-    Dragon();   //Dragon default constructor
     Dragon(Dungeon* level, int r, int c);   //Constructor for placing in a level
     virtual void drop(int r, int c);
     virtual void heal();
@@ -139,7 +136,6 @@ public:
 class Goblin : public Actor     //Goblin class
 {
 public:
-    Goblin();   //Goblin default constructor
     Goblin(Dungeon* level, int r, int c);       //Constructor for placing in a level
     
     virtual void drop(int r, int c);
