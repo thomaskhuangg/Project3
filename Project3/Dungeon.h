@@ -28,34 +28,31 @@ public:
     Dungeon();
     Dungeon(int level, Player* user);
     ~Dungeon();
-    
+
+    void populateDungeon();
     void display();
-    
-    bool addPlayer();
-    
-    void addMonster(int mon_num);
-    void killMonsters();
-    
-    void addItem(int item_num);
-    
+    bool nextLevel();
+
     bool validMove(int r, int c);
     bool isWall(int r, int c);
-    
-    void pickUpItem();
-    
-    bool checkItemPos(int r, int c);
-    
-    void populateDungeon();
-    
-    void makeRoom(int &row, int &col);
+    void clearPoint(int r, int c);
+    void randomPos(int& r, int& c);
+    char currentPos(int r, int c);
 
     bool isMonster(int r, int c);
-    
-    void randomPos(int& r, int& c);
+    void addMonster(int mon_num);
+    void killMonsters();
+    std::string moveMonsters();
 
-    char currentPos(int r, int c);
-    
-    void clearPoint(int r, int c);
+    bool addPlayer();
+    bool checkItemPos(int r, int c);
+    std::string pickUpItem();
+    void addItem(int r_pos, int c_pos, int item_num);
+
+
+
+
+    //void makeRoom(int &row, int &col);
     //Accessors
     
     int row() const { return m_row; }

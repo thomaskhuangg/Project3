@@ -19,11 +19,13 @@ public:
     
     virtual ~Actor(){delete m_weapon;} //Destructor
     
-    void move(char direction);
+    std::string move(char direction);
     
     void changeCoords(int r, int c);
     
     void placeActor(Dungeon *level, int r, int c);
+
+    bool checkPlayerPos(int r, int c) const;
     
     Dungeon* getLevel() const { return m_level; } //Accessors
     
@@ -65,9 +67,9 @@ public:
     void cheat();
     
     virtual void heal() {}; //Default implementation
-    virtual void attack(int r, int c);  //Default implementation
+    virtual std::string attack(int r, int c);  //Default implementation
     virtual void drop(int r, int c) {} //Default implementation
-    virtual char movePlace(int r, int c) {return ' '; } //Default implementation
+    virtual char moveMonster(int r, int c) {return ' '; } //Default implementation
     virtual bool checkDist() {return true; }    //Default implementation
     
 private:
@@ -96,12 +98,12 @@ public:
     int numObjects() const { return m_objects; } //Tells us how many items are in the inventory
     
     std::vector<GameObject*> m_inventory; //Vector of the player's inventory
-    void displayInventory(char c);
+   std::string displayInventory(char c);
     
     void readScroll(GameObject* obj);
     
     virtual void heal();
-    virtual void attack(int r, int c);
+    virtual std::string attack(int r, int c);
 private:
     int m_objects; //how many objects
 };
@@ -110,6 +112,8 @@ class Bogeyman : public Actor   //Bogeyman class
 {
 public:
     Bogeyman(Dungeon* level, int r, int c);   //Constructor for placing in a level
+
+    virtual char moveMonster(int r, int c);
     virtual void drop(int r, int c);
     
     virtual ~Bogeyman();
@@ -122,6 +126,8 @@ class Snakewomen : public Actor     //Snakewomen class
 {
 public:
     Snakewomen(Dungeon* level, int r, int c);       //Constructor for placing in a level
+
+    virtual char moveMonster(int r, int c);
     virtual void drop(int r, int c);
     
     virtual ~Snakewomen();
@@ -131,6 +137,8 @@ class Dragon : public Actor     //Dragon class
 {
 public:
     Dragon(Dungeon* level, int r, int c);   //Constructor for placing in a level
+
+    virtual char moveMonster(int r, int c);
     virtual void drop(int r, int c);
     virtual void heal();
     
@@ -142,6 +150,9 @@ class Goblin : public Actor     //Goblin class
 public:
     Goblin(Dungeon* level, int r, int c);       //Constructor for placing in a level
     
+    bool BFS(int r, int c);
+
+    //virtual char moveMonster(int r, int c);
     virtual void drop(int r, int c);
     virtual ~Goblin();
 };

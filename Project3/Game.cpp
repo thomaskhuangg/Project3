@@ -26,16 +26,27 @@ void Game::play()
 {
  //check if there's no player !!!!
     Player* player_ptr = m_dungeons[0]->player();
+
+    string displayMessage = "";
     
     while(!m_dungeons[m_currentLevel]->player()->isDead()){
         //check for dead mobs
         
+        m_dungeons[m_currentLevel]->killMonsters();
+
         player_ptr->heal(); //the 1/10 chance for player to heal per turn
         
         clearScreen(); //clear screen for the display
         
         m_dungeons[m_currentLevel]->display(); //display current level's dungeon
         
+        if (displayMessage.size() > 0) {
+            std::cout << endl;
+            std::cout << displayMessage;
+        }
+
+        displayMessage = "";
+
         char action = getCharacter();
         
         if(player_ptr->sleepTime() == 0){ //check if player is sleeping
@@ -44,7 +55,7 @@ void Game::play()
                 case ARROW_DOWN:
                 case ARROW_RIGHT:
                 case ARROW_LEFT:
-                    player_ptr->move(action);
+                    displayMessage += player_ptr->move(action);
                     break;
                     //here u want to move player and display message
                     break;
@@ -52,33 +63,41 @@ void Game::play()
                     player_ptr->cheat();
                     break;
                 case 'w':
-                    player_ptr->displayInventory('w');
+                    displayMessage += player_ptr->displayInventory('w');
                     break;
                 case 'r':
-                    player_ptr->displayInventory('r');
+                    displayMessage += player_ptr->displayInventory('r');
                     break;
                 case 'g':
-                    m_dungeons[m_currentLevel]->pickUpItem();
+                    displayMessage += m_dungeons[m_currentLevel]->pickUpItem();
                     break;
                 case 'i':
-                    player_ptr->displayInventory('i');
+                    displayMessage += player_ptr->displayInventory('i');
                     break;
                 case '>':
-                    //check if next level valid, increase level, create new dungeion ,and add player to it
+                    if (m_dungeons[m_currentLevel]->nextLevel()) {
+                        m_currentLevel++;
+                        m_dungeons[m_currentLevel] = new Dungeon(m_currentLevel, player_ptr);
+                        m_dungeons[m_currentLevel]->addPlayer();
+                        break;
+                    }
                     break;
+                case 'q':
+                    exit(1);
                 default:
                     break;
             }
         }
+        displayMessage += m_dungeons[m_currentLevel]->moveMonsters();
     }
     clearScreen();
     m_dungeons[m_currentLevel]->display();
     
     if (m_dungeons[m_currentLevel]->player()->isDead())
-        cout << "YOU LOSE!" << endl;
-    cout << endl;
+        std::cout << "YOU LOSE!" << endl;
+    std::cout << endl;
     
-    cout << "Press q to exit game." << endl;
+    std::cout << "Press q to exit game." << endl;
     while (getCharacter() != 'q')
         ;
 }
