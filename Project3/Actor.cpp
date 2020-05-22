@@ -153,40 +153,40 @@ bool Actor::isDead() const { //If health < 0, character dies
 void Actor::changeHP(int num) { //all change____ functions alter health, armor, strength, dex depending on what action needs it
 	m_hp += num;
 
-	if (hp() > maxHealth) {
-		m_hp = maxHealth;
+	if (hp() > 99) {
+		m_hp = 99;
 	}
 }
 
 void Actor::changeArmor(int num) {
 	m_armor += num;
 
-	if (armor() > maxArmor) {
-		m_armor = maxArmor;
+	if (armor() > 99) {
+		m_armor = 99;
 	}
 }
 
 void Actor::changeStr(int num) {
 	m_str += num;
 
-	if (m_str > maxStrength) {
-		m_str = maxStrength;
+	if (m_str > 99) {
+		m_str = 99;
 	}
 }
 
 void Actor::changeDex(int num) {
 	m_dex += num;
 
-	if (m_dex > maxDex) {
-		m_dex = maxDex;
+	if (m_dex > 9) {
+		m_dex = 99;
 	}
 }
 
 void Actor::changeSleepTime(int num) {
 	m_sleepTime += num;
 
-	if (m_sleepTime > maxSleepTime) {
-		m_sleepTime = maxSleepTime;
+	if (m_sleepTime > 9) {
+		m_sleepTime = 9;
 	}
 }
 
@@ -196,6 +196,7 @@ void Actor::setWeapon(GameObject* obj) { //Sets actor's weapon to whatever is pa
 
 
 Player::Player(Dungeon* level, int r, int c) : Actor(level, r, c, 20, nullptr, 2, 2, 2, 0, "Player", '@') { //Creates a new player, and new players have a short-sword on spawn, and in their inventory. Default stats are provided in Initializer List
+	m_maxHealth = 20;
 	m_inventory.push_back(new ShortSword);
 	setWeapon(m_inventory[0]);
 }
@@ -225,14 +226,22 @@ void Player::readScroll(GameObject* obj) { //t is teleport, a is armor, etc. Use
 	case 's':
 		changeStr(obj->bonus());
 		break;
-	case 'h':
-		changeHP(obj->bonus());
+	case 'h':;
+		changeMaxHealth(obj->bonus());
 		break;
 	case 'd':
 		changeDex(obj->bonus());
 		break;
 	default:
 		break;
+	}
+}
+
+void Player::changeMaxHealth(int value)
+{
+	m_maxHealth += value;
+	if (m_maxHealth > 99) {
+		m_maxHealth = 99;
 	}
 }
 
@@ -356,7 +365,12 @@ std::string Player::attack(int r, int c) { //Same as monster attack essentially
 
 void Player::heal() { //Random 1/10 chance for the user to heal
 	if (randInt(10) == 1) {
-		changeHP(1);
+		if (hp() >= getHealth()) {
+			return;
+		}
+		else {
+			changeHP(1);
+		}
 	}
 }
 

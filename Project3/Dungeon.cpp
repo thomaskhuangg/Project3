@@ -105,6 +105,7 @@ void Dungeon::populateDungeon() { //Populate dungeon
 
 void Dungeon::display() { //Display the dungeon
 	//Displays items and stairs before the player so the player can stand over them
+	std::cout << m_player->getHealth() << std::endl;
 	for (int i = 0; i < m_gameObjects.size(); i++) {  //Put the items on the grid from the vector
 		dungeon[m_gameObjects[i]->row()][m_gameObjects[i]->col()] = m_gameObjects[i]->symbol();
 	}

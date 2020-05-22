@@ -95,8 +95,7 @@ private:
     Dungeon* m_level; //level of dungeon
     
     GameObject* m_weapon; //Current wielded weapon
-    
-    int maxHealth = 99, maxArmor = 99, maxDex = 99, maxStrength = 99, maxSleepTime = 9; //Max stat values
+ 
     
     bool m_dead; //True if user is dead, false otherwise.
     
@@ -114,9 +113,15 @@ public:
     
     void readScroll(GameObject* obj);
     
+    void changeMaxHealth(int value);
+
+    int getHealth() { return m_maxHealth; }
+
     virtual void heal();
     virtual std::string attack(int r, int c);
 private:
+    int m_maxHealth;
+
     int m_objects; //how many objects
 };
 

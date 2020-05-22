@@ -7,8 +7,8 @@
 class GameObject {
 public:
     GameObject(); //default constructor
-	GameObject(int r, int c); //Placing GameObject @ (r,c)
-	GameObject(int r, int c, std::string name,std::string action, int dex, int damage, char symb); //weapons
+    GameObject(int r, int c); //Placing GameObject @ (r,c)
+    GameObject(int r, int c, std::string name, std::string action, int dex, int damage, char symb); //weapons
     GameObject(int r, int c, std::string name, std::string action, int bonus, char first, char symb); //scrolls
 
     //Accessors
