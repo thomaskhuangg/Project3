@@ -8,6 +8,7 @@
 
 #include "Dungeon.h"
 #include <iostream>
+using namespace std;
 
 Dungeon::Dungeon() { //Default constructor; essentially for creating the first level.
 	m_player = nullptr;

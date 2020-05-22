@@ -1,6 +1,8 @@
 #include "Actor.h"
 #include "Dungeon.h"
 #include "GameObject.h"
+#include <iostream>
+using namespace std;
 
 Actor::Actor(Dungeon* level, int r, int c, int hp, GameObject* weapon, int armor, int str, int dex, int sleepTime, std::string name, char symb) { //Constructor for arbitrary Actor; sets member variables
 	//Constructor
