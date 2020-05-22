@@ -4,7 +4,7 @@ GameObject::GameObject() //Default constructor
 {
 }
 
-GameObject::GameObject(int r, int c) //
+GameObject::GameObject(int r, int c) //Idol constructor
 {
     m_row = r;
     m_col = c;

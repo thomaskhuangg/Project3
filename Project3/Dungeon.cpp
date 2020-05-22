@@ -47,7 +47,16 @@ Dungeon::Dungeon(int level, Player* user) //Constructor for levels 1-4
         }
     }
 
+    if (m_level == 4) {
+        int m_idol_row = 0;
+        int m_idol_col = 0;
+        randomPos(m_idol_row, m_idol_col);
+        GameObject idol(m_idol_row, m_idol_col);
+        m_idol = idol;
+    }
+
     populateDungeon();
+
     randomPos(m_playerRow, m_playerCol);
     randomPos(m_stairRow, m_stairCol);
 }
@@ -92,6 +101,9 @@ void Dungeon::populateDungeon() { //Populate dungeon
 }
 
 void Dungeon::display() { //Display the dungeon
+
+    std::cout << "The Current Level is: " << m_level << std::endl;
+
     //Displays items and stairs before the player so the player can stand over them
     for(int i = 0; i < m_gameObjects.size(); i++){  //Put the items on the grid from the vector
         dungeon[m_gameObjects[i]->row()][m_gameObjects[i]->col()] = m_gameObjects[i]->symbol();
@@ -100,11 +112,11 @@ void Dungeon::display() { //Display the dungeon
     if (m_level < 4) { //For levels 0-3, spawn stairs
         dungeon[m_stairRow][m_stairCol] = '>';
     }
-    /*
-    else if(m_level == 4){ //At level 4, spawn the golden idol
-        
+    
+    else if(m_level == 4){ //At level 4, spawn the golden 
+        dungeon[m_idol.row()][m_idol.col()] = '&';
     }
-    */
+    
 
     if(m_player != nullptr){ //Spawn player as long as it's not nullptr
         if(dungeon[m_player->row()][m_player->col()] != '#'){
@@ -228,12 +240,14 @@ void Dungeon::addMonster(int mon_num) { //Adding monsters to the dungeon, choose
 }
 
 void Dungeon::killMonsters() { //Iterate through the vectorm and if the mob is dead, we drop the mob's item (if it the probability stands) and erases the vector
-    for(std::vector<Actor*>::iterator p = m_monsters.begin(); p != m_monsters.end(); p++){
+    for (std::vector<Actor*>::iterator p = m_monsters.begin(); p != m_monsters.end(); p++) {
         Actor* mob = *p;
-        if(mob->isDead()){
-            mob->drop(mob->row(), mob->col()); //Drop its item
-            clearPoint(mob->row(), mob->col());//Clear the point explained above
-            delete mob; //Delete the pointer
+        if (mob->isDead()) {
+            mob->drop(mob->row(), mob->col());
+            clearPoint(mob->row(), mob->col());
+            delete mob;
+            m_monsters.erase(p);
+            return;
         }
     }
 }
@@ -243,8 +257,10 @@ std::string Dungeon::moveMonsters() { //Move the monsters
     for (int i = 0; i < m_monsters.size(); i++) { //Loop through the vectors
         if (m_monsters[i]->sleepTime() > 0) {
             m_monsters[i]->changeSleepTime(-1);
-        } //As long as the monster isn't asleep,
-        message += m_monsters[i]->move('z'); //Move the monsters and return the message output by the monster's attack (called in move)
+        }
+        else {
+            message += m_monsters[i]->move('z'); //Move the monsters and return the message output by the monster's attack (called in move)
+        }
     }
     return message;
 }
@@ -277,16 +293,26 @@ std::string Dungeon::pickUpItem() {
 
     std::string message = "";
 
-    /* //If player is on the idol and picks it up, end the game.
-     if (m_player->row() == m_idol->row() && m_player->col() == m_idol->col()) {
+     //If player is on the idol and picks it up, end the game.
+     if (m_level == 4 && (m_player->row() == m_idol.row() && m_player->col() == m_idol.col())) {
      std::cout << std::endl;
      std::cout << "You pick up the golden idol" << std::endl;
      std::cout << "Congratulations, you won!" << std::endl;
      std::cout << "Press q to exit game." << std::endl;
-     //exit game w/ getCharacter and q
-     return;
+     char c;
+     c = getCharacter();
+     if (c == 'q') {
+         exit(1);
      }
-     */
+     while (c != 'q')
+     {
+         c = getCharacter();
+         if (c == 'q')
+             exit(1); 
+     }
+     return "";
+     }
+     
     if (player()->m_inventory.size() >= 25) { //If the inventory is greater than 25, we say that their napsack is full and not add it
        message = message + "Your knapsack is full; you can't pick that up." + "\n";
     }

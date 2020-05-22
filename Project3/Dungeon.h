@@ -76,7 +76,7 @@ private:
     
     Player* m_player;
 
-    GameObject* m_idol;
+    GameObject m_idol;
 
     std::vector<GameObject*> m_gameObjects;
     std::vector<Actor*>  m_monsters;

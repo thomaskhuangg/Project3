@@ -88,6 +88,9 @@ void Game::play()
                     break;
             }
         }
+        else {
+            player_ptr->changeSleepTime(-1);
+        }
         displayMessage += m_dungeons[m_currentLevel]->moveMonsters();
     }
     clearScreen();

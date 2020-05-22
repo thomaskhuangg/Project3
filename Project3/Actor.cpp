@@ -96,12 +96,16 @@ std::string Actor::attack(int r, int c) { //This is the monster's attack method
 
 			if (getWeapon()->name() == "magic fangs") {
 				if (randInt(4) == 0) {
+					isSleep = true;
 					int X = randInt(2, 6);
 					if (player->sleepTime() > 0) {
 						if (X > player->sleepTime()) {
 							player->changeSleepTime(-1 * player->sleepTime());
 							player->changeSleepTime(X);
 						}
+					}
+					else {
+						player->changeSleepTime(X);
 					}
 				}
 			}
@@ -110,7 +114,7 @@ std::string Actor::attack(int r, int c) { //This is the monster's attack method
 				message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + player->name() + " dealing a final blow." + "\n"; //Message if attack kills
 			}
 			else if (player->sleepTime() > 0 && isSleep) {
-				message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + player->name() + "and hits, putting " + player->name() + " to sleep." + "\n";
+				message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + player->name() + " and hits, putting " + player->name() + " to sleep." + "\n";
 			}
 			else {
 				message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + player->name() + " and hits." + "\n"; //message if attack hits
@@ -207,9 +211,14 @@ void Actor::cheat() { //Cheat function for testing
 
 void Player::readScroll(GameObject* obj) { //t is teleport, a is armor, etc. Used in inventory, if they choose to use it, the stat is changed/the player is teleported
 	switch (obj->first()) {
-	case 't':
-		//Do this after u finish dungeon
+	case 't': {
+		int r_pos = 0;
+		int c_pos = 0;
+		getLevel()->randomPos(r_pos, c_pos);
+		getLevel()->clearPoint(row(), col());
+		changeCoords(r_pos, c_pos);
 		break;
+	}
 	case 'a':
 		changeArmor(obj->bonus());
 		break;
@@ -288,7 +297,7 @@ std::string Player::displayInventory(char c) { //Display inventory
 }
 
 std::string Player::attack(int r, int c) { //Same as monster attack essentially
-	std::string message;
+	std::string message = "";
 	char pos = getLevel()->currentPos(r, c);
 	bool hitBool = false;
 	bool isSleep = false;
@@ -312,6 +321,7 @@ std::string Player::attack(int r, int c) { //Same as monster attack essentially
 
 			if (getWeapon()->name() == "magic fangs") {
 				if (randInt(4) == 0) {
+					isSleep = true;
 					int X = randInt(2, 6);
 					if (mob->sleepTime() > 0) {
 						if (X > mob->sleepTime()) {
@@ -319,28 +329,29 @@ std::string Player::attack(int r, int c) { //Same as monster attack essentially
 							mob->changeSleepTime(X);
 						}
 					}
+					else {
+						mob->changeSleepTime(X);
+					}
 				}
 			}
 			if (hitBool) {
 				if (mob->isDead()) {
 					message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + mob->name() + " dealing a final blow." + "\n";
-					break;
 				}
 				else if (mob->sleepTime() > 0 && isSleep) {
-					message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + mob->name() + "and hits, putting " + mob->name() + " to sleep." + "\n";
+					message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + mob->name() + " and hits, putting " + mob->name() + " to sleep." + "\n";
 				}
-				else {
+				else if (!mob->isDead()){
 					message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + mob->name() + " and hits." + "\n";
-					break;
+
 				}
-			}
-			else {
-				message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + mob->name() + " and misses." + "\n";
-				break;
 			}
 		}
-		return message;
+		else {
+			message += name() + " " + getWeapon()->action() + " " + getWeapon()->name() + " at the " + mob->name() + " and misses." + "\n";
+		}
 	}
+	return message;
 }
 
 void Player::heal() { //Random 1/10 chance for the user to heal
