@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
-GameObject::GameObject() //Default constructor
-{
+
+GameObject::GameObject() {
 }
 
 GameObject::GameObject(int r, int c) //Idol constructor

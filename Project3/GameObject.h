@@ -6,7 +6,7 @@
 
 class GameObject {
 public:
-	GameObject();//Default constructor
+    GameObject(); //default constructor
 	GameObject(int r, int c); //Placing GameObject @ (r,c)
 	GameObject(int r, int c, std::string name,std::string action, int dex, int damage, char symb); //weapons
     GameObject(int r, int c, std::string name, std::string action, int bonus, char first, char symb); //scrolls
@@ -47,64 +47,53 @@ private:
 class Mace : public GameObject {
 public:
     Mace(int r, int c);
-    ~Mace();
 };
 
 class ShortSword : public GameObject {
 public:
     ShortSword();
     ShortSword(int r, int c);
-    ~ShortSword();
 };
 
 class LongSword : public GameObject {
 public:
     LongSword(int r, int c);
-    ~LongSword();
-
 };
 
 class MagicAxe : public GameObject {
 public:
     MagicAxe(int r, int c);
-    ~MagicAxe();
-
 };
 
 class MagicFang : public GameObject {
 public:
     MagicFang(int r, int c);
-    ~MagicFang();
 };
 
 class Teleport : public GameObject {
 public:
     Teleport(int r, int c);
-    ~Teleport();
 };
 
 class ImproveArmor : public GameObject {
 public:
     ImproveArmor(int r, int c);
-    ~ImproveArmor();
 };
 
 class RaiseStrength : public GameObject {
 public:
     RaiseStrength(int r, int c);
-    ~RaiseStrength();
 };
 
 class EnhanceHealth : public GameObject {
 public:
     EnhanceHealth(int r, int c);
-    ~EnhanceHealth();
 };
 
 class EnhanceDex : public GameObject {
 public:
     EnhanceDex(int r, int c);
-    ~EnhanceDex();
+
 };
 
 

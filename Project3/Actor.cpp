@@ -478,25 +478,50 @@ Goblin::Goblin(Dungeon* level, int r, int c) : Actor(level, r, c, randInt(15, 20
 
 }
 
+bool Goblin::PathExists(char maze[18][70], int sr, int sc, int er, int ec)
+{
+	std::stack<Coord> coordStack;
+
+	Coord start(sr, sc);
+	coordStack.push(start);
+	maze[start.r()][start.c()] = '*';
+
+	while (!coordStack.empty()) {
+		Coord curr = coordStack.top();
+		std::cout << "(" << curr.r() << "," << curr.c() << ")" << std::endl;
+		coordStack.pop();
+
+		if (curr.r() == er && curr.c() == ec) {
+			return true;
+		}
+		if (maze[curr.r() + 1][curr.c()] == '.') {
+			Coord s(curr.r() + 1, curr.c());
+			coordStack.push(s);
+			maze[curr.r() + 1][curr.c()] = '*';
+		}
+		if (maze[curr.r()][curr.c() - 1] == '.') {
+			Coord w(curr.r(), curr.c() - 1);
+			coordStack.push(w);
+			maze[curr.r()][curr.c() - 1] = '*';
+		}
+		if (maze[curr.r() - 1][curr.c()] == '.') {
+			Coord n(curr.r() - 1, curr.c());
+			coordStack.push(n);
+			maze[curr.r() - 1][curr.c()] = '*';
+		}
+		if (maze[curr.r()][curr.c() + 1] == '.') {
+			Coord e(curr.r(), curr.c() + 1);
+			coordStack.push(e);
+			maze[curr.r()][curr.c() + 1] = '*';
+		}
+	}
+	return false;
+}
+
 Goblin::~Goblin() { //Destructor
 
 }
 
-bool Goblin::BFS(int r, int c) {
-	if (abs(getLevel()->player()->row() - row()) + abs(getLevel()->player()->col() - col()) <= 15) {
-		if (!getLevel()->isWall(row() - 1, col())) {
-			if ((!getLevel()->isWall(row() - 1, col()) && (getLevel()->validMove(row() - 1, col())) && ((row() - r > 0))) || (checkPlayerPos(row() - 1, col())))
-				return ARROW_UP;
-			else if ((!getLevel()->isWall(row() + 1, col()) && (getLevel()->validMove(row() + 1, col())) && ((row() - r < 0))) || (checkPlayerPos(row() + 1, col())))
-				return ARROW_DOWN;
-			else if ((!getLevel()->isWall(row(), col() - 1) && (getLevel()->validMove(row(), col() - 1)) && ((col() - c > 0))) || (checkPlayerPos(row(), col() - 1)))
-				return ARROW_LEFT;
-			else if ((!getLevel()->isWall(row(), col() + 1) && (getLevel()->validMove(row(), col() + 1)) && ((row() - c < 0))) || (checkPlayerPos(row(), col() + 1)))
-				return ARROW_RIGHT;
-		}
-	}
-	return ' ';
-}
 
 void Goblin::drop(int r, int c)
 {

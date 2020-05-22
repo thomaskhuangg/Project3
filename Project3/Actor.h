@@ -8,10 +8,22 @@
 #include "GameObject.h"
 #include "utilities.h"
 #include "Game.h"
+#include <stack>
 
 class Dungeon;
 class GameObject;
 class Game;
+
+class Coord
+{
+public:
+    Coord(int rr, int cc) : m_row(rr), m_col(cc) {}
+    int r() const { return m_row; }
+    int c() const { return m_col; }
+private:
+    int m_row;
+    int m_col;
+};
 
 class Actor{
 public:
@@ -150,7 +162,7 @@ class Goblin : public Actor     //Goblin class
 public:
     Goblin(Dungeon* level, int r, int c);       //Constructor for placing in a level
     
-    bool BFS(int r, int c);
+    bool PathExists(char maze[18][70], int sr, int sc, int er, int ec);
 
     //virtual char moveMonster(int r, int c);
     virtual void drop(int r, int c);

@@ -18,13 +18,13 @@ Game::Game(int goblinSmellDistance)
 
 Game::~Game()
 {
-    for (int i = 0; i < 5 && m_dungeons[i] != nullptr; i++)
+    for (int i = 0; i < 5 && m_dungeons[i] != nullptr; i++) {
         delete m_dungeons[i];
+    }
 }
 
 void Game::play()
 {
- //check if there's no player !!!!
     Player* player_ptr = m_dungeons[0]->player();
 
     string displayMessage = "";
