@@ -63,12 +63,14 @@ Dungeon::Dungeon(int level, Player* user) //Constructor for levels 1-4
 }
 
 Dungeon::~Dungeon() { //Destructor, removing monsters and items
-        delete m_player;
 	for (int i = 0; i < m_gameObjects.size(); i++) {
-		delete m_gameObjects[i];
+		if(m_gameObjects[i] != nullptr)
+			delete m_gameObjects[i];
 	}
+	delete m_player;
 	for (int j = 0; j < m_monsters.size(); j++) {
-		delete m_monsters[j];
+		if(m_monsters[j] != nullptr)
+			delete m_monsters[j];
 	}
 
 }
@@ -135,7 +137,8 @@ void Dungeon::display() { //Display the dungeon
 		std::cout << std::endl;
 	}
 	//This is the player's stats, dungeon level, etc.
-	std::cout << "Dungeon Level: " << m_level << ", Hit points: " << m_player->hp() << ", Armor: " << m_player->armor() << ", Strength: " << m_player->str() << ", Dexterity: " << m_player->dex() << std::endl;
+	if(m_player != nullptr)
+		std::cout << "Dungeon Level: " << m_level << ", Hit points: " << m_player->hp() << ", Armor: " << m_player->armor() << ", Strength: " << m_player->str() << ", Dexterity: " << m_player->dex() << std::endl;
 }
 
 void Dungeon::makeRooms() {

@@ -29,7 +29,7 @@ class Actor{
 public:
     Actor(Dungeon* level, int r, int c, int hp, GameObject* weapon, int armor, int str, int dex, int sleepTime, std::string name, char symb); //Constructor
     
-    virtual ~Actor(){delete m_weapon;} //Destructor
+    virtual ~Actor(){} //Destructor
     
     std::string move(char direction);
     
@@ -80,7 +80,7 @@ public:
     
     virtual void heal() {}; //Default implementation
     virtual std::string attack(int r, int c);  //Default implementation
-    virtual void drop(int r, int c) {} //Default implementation
+    virtual void drop(int r, int c) {}; //Default implementation
     virtual char moveMonster(int r, int c) {return ' '; } //Default implementation
     virtual bool checkDist() {return true; }    //Default implementation
     
@@ -106,8 +106,6 @@ public:
     Player(Dungeon* level, int r, int c); //Constructor for player
     virtual ~Player();//Destructor
     
-    int numObjects() const { return m_objects; } //Tells us how many items are in the inventory
-    
     std::vector<GameObject*> m_inventory; //Vector of the player's inventory
    std::string displayInventory(char c);
     
@@ -121,8 +119,6 @@ public:
     virtual std::string attack(int r, int c);
 private:
     int m_maxHealth;
-
-    int m_objects; //how many objects
 };
 
 class Bogeyman : public Actor   //Bogeyman class

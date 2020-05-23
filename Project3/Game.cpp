@@ -97,7 +97,6 @@ void Game::play()
     if (m_dungeons[m_currentLevel]->player()->isDead())
         std::cout << "Press q to exit game." << std::endl;
     char c;
-    c = getCharacter();
     while(getCharacter() != 'q')
         c = getCharacter();
     if(c== 'q'){
