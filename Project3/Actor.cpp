@@ -392,13 +392,13 @@ char Bogeyman::moveMonster(int r, int c) {
 			//If it's a valid move in the desired move location, and
 			//If the actors position and the parmeters aren't exactly the same
 			//OR if the player's position isn't directly at the position that you want them to move @
-			if ((!getLevel()->isWall(row() - 1, col()) && (getLevel()->validMove(row() - 1, col())) && ((row() - r > 0))) || (checkPlayerPos(row() - 1, col())))
+			if (((!getLevel()->isWall(row() - 1, col()) && (getLevel()->validMove(row() - 1, col())) && ((row() - r > 0)))) || (checkPlayerPos(row() - 1, col())))
 				return ARROW_UP;
-			else if ((!getLevel()->isWall(row() + 1, col()) && (getLevel()->validMove(row() + 1, col())) && ((row() - r < 0))) || (checkPlayerPos(row() + 1, col())))
+			else if (((!getLevel()->isWall(row() + 1, col()) && (getLevel()->validMove(row() + 1, col())) && ((row() - r < 0)))) || (checkPlayerPos(row() + 1, col())))
 				return ARROW_DOWN;
-			else if ((!getLevel()->isWall(row(), col() - 1) && (getLevel()->validMove(row(), col() - 1)) && ((col() - c > 0))) || (checkPlayerPos(row(), col() - 1)))
+			else if (((!getLevel()->isWall(row(), col() - 1) && (getLevel()->validMove(row(), col() - 1)) && ((col() - c > 0)))) || (checkPlayerPos(row(), col() - 1)))
 				return ARROW_LEFT;
-			else if ((!getLevel()->isWall(row(), col() + 1) && (getLevel()->validMove(row(), col() + 1)) && ((row() - c < 0))) || (checkPlayerPos(row(), col() + 1)))
+			else if (((!getLevel()->isWall(row(), col() + 1) && (getLevel()->validMove(row(), col() + 1)) && ((row() - c < 0)))) || (checkPlayerPos(row(), col() + 1)))
 				return ARROW_RIGHT;
 		}
 	}
@@ -422,13 +422,13 @@ Snakewomen::Snakewomen(Dungeon* level, int r, int c) : Actor(level, r, c, randIn
 char Snakewomen::moveMonster(int r, int c) {
 	if (abs(getLevel()->player()->row() - row()) + abs(getLevel()->player()->col() - col()) <= 3) {
 		if (!getLevel()->isWall(row() - 1, col())) {
-			if ((!getLevel()->isWall(row() - 1, col()) && (getLevel()->validMove(row() - 1, col())) && ((row() - r > 0))) || (checkPlayerPos(row() - 1, col())))
+			if (((!getLevel()->isWall(row() - 1, col()) && (getLevel()->validMove(row() - 1, col())) && ((row() - r > 0)))) || (checkPlayerPos(row() - 1, col())))
 				return ARROW_UP;
-			else if ((!getLevel()->isWall(row() + 1, col()) && (getLevel()->validMove(row() + 1, col())) && ((row() - r < 0))) || (checkPlayerPos(row() + 1, col())))
+			else if (((!getLevel()->isWall(row() + 1, col()) && (getLevel()->validMove(row() + 1, col())) && ((row() - r < 0)))) || (checkPlayerPos(row() + 1, col())))
 				return ARROW_DOWN;
-			else if ((!getLevel()->isWall(row(), col() - 1) && (getLevel()->validMove(row(), col() - 1)) && ((col() - c > 0))) || (checkPlayerPos(row(), col() - 1)))
+			else if (((!getLevel()->isWall(row(), col() - 1) && (getLevel()->validMove(row(), col() - 1)) && ((col() - c > 0)))) || (checkPlayerPos(row(), col() - 1)))
 				return ARROW_LEFT;
-			else if ((!getLevel()->isWall(row(), col() + 1) && (getLevel()->validMove(row(), col() + 1)) && ((row() - c < 0))) || (checkPlayerPos(row(), col() + 1)))
+			else if (((!getLevel()->isWall(row(), col() + 1) && (getLevel()->validMove(row(), col() + 1)) && ((row() - c < 0)))) || (checkPlayerPos(row(), col() + 1)))
 				return ARROW_RIGHT;
 		}
 	}
@@ -457,13 +457,13 @@ Dragon::Dragon(Dungeon* level, int r, int c) : Actor(level, r, c, randInt(20, 25
 char Dragon::moveMonster(int r, int c) {
 	if (abs(getLevel()->player()->row() - row()) + abs(getLevel()->player()->col() - col()) <= 1) {
 		if (!getLevel()->isWall(row() - 1, col())) {
-			if ((!getLevel()->isWall(row() - 1, col()) && (getLevel()->validMove(row() - 1, col())) && ((row() - r > 0))) || (checkPlayerPos(row() - 1, col())))
+			if (((!getLevel()->isWall(row() - 1, col()) && (getLevel()->validMove(row() - 1, col())) && ((row() - r > 0)))) || (checkPlayerPos(row() - 1, col())))
 				return ARROW_UP;
-			else if ((!getLevel()->isWall(row() + 1, col()) && (getLevel()->validMove(row() + 1, col())) && ((row() - r < 0))) || (checkPlayerPos(row() + 1, col())))
+			else if (((!getLevel()->isWall(row() + 1, col()) && (getLevel()->validMove(row() + 1, col())) && ((row() - r < 0)))) || (checkPlayerPos(row() + 1, col())))
 				return ARROW_DOWN;
-			else if ((!getLevel()->isWall(row(), col() - 1) && (getLevel()->validMove(row(), col() - 1)) && ((col() - c > 0))) || (checkPlayerPos(row(), col() - 1)))
+			else if (((!getLevel()->isWall(row(), col() - 1) && (getLevel()->validMove(row(), col() - 1)) && ((col() - c > 0)))) || (checkPlayerPos(row(), col() - 1)))
 				return ARROW_LEFT;
-			else if ((!getLevel()->isWall(row(), col() + 1) && (getLevel()->validMove(row(), col() + 1)) && ((row() - c < 0))) || (checkPlayerPos(row(), col() + 1)))
+			else if (((!getLevel()->isWall(row(), col() + 1) && (getLevel()->validMove(row(), col() + 1)) && ((row() - c < 0)))) || (checkPlayerPos(row(), col() + 1)))
 				return ARROW_RIGHT;
 		}
 	}

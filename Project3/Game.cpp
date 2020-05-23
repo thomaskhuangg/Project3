@@ -57,8 +57,6 @@ void Game::play()
                 case ARROW_LEFT:
                     displayMessage += player_ptr->move(action);
                     break;
-                    //here u want to move player and display message
-                    break;
                 case 'c':
                     player_ptr->cheat();
                     break;
@@ -97,12 +95,8 @@ void Game::play()
     m_dungeons[m_currentLevel]->display();
     
     if (m_dungeons[m_currentLevel]->player()->isDead())
-        std::cout << "YOU LOSE!" << endl;
-    std::cout << endl;
-    
-    std::cout << "Press q to exit game." << endl;
-    while (getCharacter() != 'q')
-        ;
+        std::cout << "Press q to exit game." << std::endl;
+
 }
 
 // You will presumably add to this project other .h/.cpp files for the

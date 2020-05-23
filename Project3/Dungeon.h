@@ -32,6 +32,7 @@ public:
     void populateDungeon();
     void display();
     bool nextLevel();
+    void makeRooms();
 
     bool validMove(int r, int c);
     bool isWall(int r, int c);

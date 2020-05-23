@@ -25,6 +25,7 @@ Dungeon::Dungeon() { //Default constructor; essentially for creating the first l
 			dungeon[i][j] = '#';
 		}
 	}
+	makeRooms();
 	populateDungeon();
 
 	randomPos(m_playerRow, m_playerCol);
@@ -47,6 +48,8 @@ Dungeon::Dungeon(int level, Player* user) //Constructor for levels 1-4
 			dungeon[i][j] = '#';
 		}
 	}
+
+	makeRooms();
 	populateDungeon();
 
 	randomPos(m_stairRow, m_stairCol);
@@ -71,12 +74,6 @@ Dungeon::~Dungeon() { //Destructor, removing monsters and items
 
 
 void Dungeon::populateDungeon() { //Populate dungeon
-
-	for (int i = 1; i < row() - 1; i++) { //Here we make the rooms
-		for (int j = 1; j < col() - 1; j++) {
-			dungeon[i][j] = ' ';
-		}
-	}
 
 	int M = randInt(2, 5 * (m_level + 1) + 1); //Choose a number of monsters from formula in specs
 	for (int i = 0; i < M; i++) { //Loop through the number of monsters 
@@ -106,7 +103,6 @@ void Dungeon::populateDungeon() { //Populate dungeon
 
 void Dungeon::display() { //Display the dungeon
 	//Displays items and stairs before the player so the player can stand over them
-	std::cout << m_player->getHealth() << std::endl;
 	for (int i = 0; i < m_gameObjects.size(); i++) {  //Put the items on the grid from the vector
 		dungeon[m_gameObjects[i]->row()][m_gameObjects[i]->col()] = m_gameObjects[i]->symbol();
 	}
@@ -139,6 +135,52 @@ void Dungeon::display() { //Display the dungeon
 	}
 	//This is the player's stats, dungeon level, etc.
 	std::cout << "Dungeon Level: " << m_level << ", Hit points: " << m_player->hp() << ", Armor: " << m_player->armor() << ", Strength: " << m_player->str() << ", Dexterity: " << m_player->dex() << std::endl;
+}
+
+void Dungeon::makeRooms() {
+	//Couldn't figure out dynamic room making, so we are stuck at 4 rooms
+	vector<int> lengths; //Vector of lengths of the room
+	vector<int> widths; //Vector of the widths of the rooms
+	vector<int> r_pos; //Vector of the row positions
+	vector <int> c_pos;// Vector of column positions
+
+	r_pos.push_back(randInt(2, 4)); //For upper left room, choose row position relatively close, but not too close to border
+	r_pos.push_back(randInt(2, 4)); //Do the same for upper right
+	r_pos.push_back(randInt(2 + (MAXROWS / 2), 4 + (MAXROWS / 2))); //For bottom left, choose row to be a bit more of row midpoint of the dungeon
+	r_pos.push_back(randInt(2 + (MAXROWS / 2), 4 + (MAXROWS / 2))); //Same for bottom right
+
+	c_pos.push_back(randInt(1, 2)); //For upper left room, choose col position relatively close, but not too close to border
+	c_pos.push_back(randInt(6+(MAXCOLS / 2), 7 + (MAXCOLS / 2))); //For upper right room, choose col to be a bit after col midpoint of dungeon
+	c_pos.push_back(randInt(1, 2));//bottom right same as upper left
+	c_pos.push_back(randInt((MAXCOLS / 2), 4 + (MAXCOLS / 2))); //Borrom right same as upper right
+
+	for (int i = 0; i < 4; i++) { //Add random lengths and widths for the dungeons
+		lengths.push_back(14 + randInt(10));
+		widths.push_back(4 + randInt(3));
+	}
+	widths[1] = 6 + randInt(2); //Had some issues with top right room not connecting to corridor, so hard-coded it
+
+	for (int k = 0; k < 4; k++) { //Create the rooms
+		for (int i = r_pos[k]; i < MAXROWS - 1 && i < r_pos[k] + widths[k]; i++) {
+			for (int j = c_pos[k]; j < MAXCOLS - 1 && j < c_pos[k] + lengths[k]; j++) {
+				dungeon[i][j] = ' ';
+			}
+		}
+	}
+
+	for (int i = r_pos[2] - 1; i >= (r_pos[0] + widths[0]); i--) { //Connect vertically the top left and bottom left room with midpoint of the bottom left room
+		dungeon[i][((c_pos[2] + lengths[2]) / 2) - 1] = ' ';
+		dungeon[i][((c_pos[2] + lengths[2]) / 2)] = ' ';
+	}
+
+	for (int i = r_pos[3] - 1; i >= (r_pos[1] + widths[1]); i--) {//Connect vertically the top right and bottom right room with approximation of midpoint of the bottom right room
+		dungeon[i][((MAXCOLS + lengths[3]) / 2)+2] = ' ';
+		dungeon[i][((MAXCOLS + lengths[3]) / 2) + 3] = ' ';
+	}
+
+	for (int i = c_pos[0] + lengths[0]; i <= c_pos[1]+1; i++) { //Connect too left and bottom left room from midpoint of top left room.
+		dungeon[-1 + r_pos[0] + ((r_pos[0] + widths[0]) / 2)][i] = ' ';
+	}
 }
 
 bool Dungeon::nextLevel()
