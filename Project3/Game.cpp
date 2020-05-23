@@ -31,7 +31,7 @@ void Game::play()
     
     while(!m_dungeons[m_currentLevel]->player()->isDead()){
         //check for dead mobs
-        
+        m_dungeons[m_currentLevel]->setSmellDistance(m_smellDistance);
         m_dungeons[m_currentLevel]->killMonsters();
         
         player_ptr->heal(); //the 1/10 chance for player to heal per turn
@@ -99,7 +99,7 @@ void Game::play()
     char c;
     while(getCharacter() != 'q')
         c = getCharacter();
-    if(c== 'q'){
+    if(c == 'q'){
         std::exit(1);
     }
 }

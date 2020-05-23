@@ -489,6 +489,20 @@ Goblin::Goblin(Dungeon* level, int r, int c) : Actor(level, r, c, randInt(15, 20
     
 }
 
+char Goblin::moveMonster(int r, int c) {
+    if (abs(getLevel()->player()->row() - row()) + abs(getLevel()->player()->col() - col()) <= getLevel()->getSmellDistance()) {
+        if ((checkPlayerPos(row() - 1, col())) || ((!getLevel()->isWall(row() - 1, col()) && (getLevel()->validMove(row() - 1, col())) && ((row() - r > 0)))))
+            return ARROW_UP;
+        if ((checkPlayerPos(row() + 1, col())) || ((!getLevel()->isWall(row() + 1, col()) && (getLevel()->validMove(row() + 1, col())) && ((row() - r < 0)))))
+            return ARROW_DOWN;
+        if ((checkPlayerPos(row(), col() - 1)) || ((!getLevel()->isWall(row(), col() - 1) && (getLevel()->validMove(row(), col() - 1)) && ((col() - c > 0)))))
+            return ARROW_LEFT;
+        if ((checkPlayerPos(row(), col() + 1)) || ((!getLevel()->isWall(row(), col() + 1) && (getLevel()->validMove(row(), col() + 1)) && ((row() - c < 0)))))
+            return ARROW_RIGHT;
+    }
+    return ' ';
+}
+
 bool Goblin::PathExists(char maze[18][70], int sr, int sc, int er, int ec)
 {
     std::stack<Coord> coordStack;

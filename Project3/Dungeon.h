@@ -50,18 +50,21 @@ public:
     std::string pickUpItem();
     void addItem(int r_pos, int c_pos, int item_num);
 
-
+    void setSmellDistance(int smellDistance) { m_smellDistance = smellDistance; };
 
 
     //void makeRoom(int &row, int &col);
     //Accessors
     
+    int getSmellDistance() const { return m_smellDistance; }
     int row() const { return m_row; }
     int col() const { return m_col; }
     Player* player() const {return m_player; }
     Actor* monster(int r, int c) const;
 private:
     //Private member variables
+    int m_smellDistance;
+
     Game* game;
     
     int m_row;

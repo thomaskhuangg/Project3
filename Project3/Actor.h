@@ -165,7 +165,7 @@ public:
     
     bool PathExists(char maze[18][70], int sr, int sc, int er, int ec);
 
-    //virtual char moveMonster(int r, int c);
+    virtual char moveMonster(int r, int c);
     virtual void drop(int r, int c);
     virtual ~Goblin();
 };
