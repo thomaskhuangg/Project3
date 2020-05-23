@@ -67,7 +67,9 @@ Dungeon::~Dungeon() { //Destructor, removing monsters and items
 		if(m_gameObjects[i] != nullptr)
 			delete m_gameObjects[i];
 	}
-	delete m_player;
+    if(m_player != nullptr){
+        delete m_player;
+    }
 	for (int j = 0; j < m_monsters.size(); j++) {
 		if(m_monsters[j] != nullptr)
 			delete m_monsters[j];
