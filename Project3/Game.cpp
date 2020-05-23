@@ -26,14 +26,14 @@ Game::~Game()
 void Game::play()
 {
     Player* player_ptr = m_dungeons[0]->player();
-
+    
     string displayMessage = "";
     
     while(!m_dungeons[m_currentLevel]->player()->isDead()){
         //check for dead mobs
         
         m_dungeons[m_currentLevel]->killMonsters();
-
+        
         player_ptr->heal(); //the 1/10 chance for player to heal per turn
         
         clearScreen(); //clear screen for the display
@@ -44,9 +44,9 @@ void Game::play()
             std::cout << endl;
             std::cout << displayMessage;
         }
-
+        
         displayMessage = "";
-
+        
         char action = getCharacter();
         
         if(player_ptr->sleepTime() == 0){ //check if player is sleeping
@@ -96,7 +96,13 @@ void Game::play()
     
     if (m_dungeons[m_currentLevel]->player()->isDead())
         std::cout << "Press q to exit game." << std::endl;
-
+    char c;
+    c = getCharacter();
+    while(getCharacter() != 'q')
+        c = getCharacter();
+    if(c== 'q'){
+        std::exit(1);
+    }
 }
 
 // You will presumably add to this project other .h/.cpp files for the

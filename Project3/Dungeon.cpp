@@ -63,13 +63,14 @@ Dungeon::Dungeon(int level, Player* user) //Constructor for levels 1-4
 }
 
 Dungeon::~Dungeon() { //Destructor, removing monsters and items
+        delete m_player;
 	for (int i = 0; i < m_gameObjects.size(); i++) {
 		delete m_gameObjects[i];
 	}
 	for (int j = 0; j < m_monsters.size(); j++) {
 		delete m_monsters[j];
 	}
-	delete m_player;
+
 }
 
 
